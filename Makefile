@@ -10,7 +10,7 @@ generate: openapi.json
 	    -p podVersion=1.0.0 \
 	    -p podAuthors=bmlt-enabled \
 	    -p podDescription="BMLT Admin API Client" \
-	    -p podLicense=MIT \
+	    -p podLicense="MIT" \
 		--git-repo-id=bmlt-root-server-go-client \
 		--git-user-id=bmlt-enabled \
 	    -o .
