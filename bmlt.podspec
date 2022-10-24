@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '15.0'
   s.watchos.deployment_target = '3.0'
   s.version = '1.0.0'
-  s.source = { :git => 'https://github.com/bmlt-enabled/bmlt-root-server-swift-client.git', :tag => 'v1.0.0' }
+  s.source = { :git => 'https://github.com/bmlt-enabled/bmlt-root-server-swift-client.git', :tag => '1.0.0' }
   s.authors = 'bmlt-enabled'
   s.license = 'MIT'
   s.homepage = 'https://github.com/bmlt-enabled/bmlt-root-server-swift-client/'
