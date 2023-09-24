@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**authLogout**](RootServerAPI.md#authlogout) | **POST** /api/v1/auth/logout | Revokes a token
 [**authRefresh**](RootServerAPI.md#authrefresh) | **POST** /api/v1/auth/refresh | Revokes and issues a new token
 [**authToken**](RootServerAPI.md#authtoken) | **POST** /api/v1/auth/token | Creates a token
+[**createErrorTest**](RootServerAPI.md#createerrortest) | **POST** /api/v1/errortest | Tests some errors
 [**createFormat**](RootServerAPI.md#createformat) | **POST** /api/v1/formats | Creates a format
 [**createMeeting**](RootServerAPI.md#createmeeting) | **POST** /api/v1/meetings | Creates a meeting
 [**createServiceBody**](RootServerAPI.md#createservicebody) | **POST** /api/v1/servicebodies | Creates a service body
@@ -19,6 +20,8 @@ Method | HTTP request | Description
 [**getFormats**](RootServerAPI.md#getformats) | **GET** /api/v1/formats | Retrieves formats
 [**getMeeting**](RootServerAPI.md#getmeeting) | **GET** /api/v1/meetings/{meetingId} | Retrieves a meeting
 [**getMeetings**](RootServerAPI.md#getmeetings) | **GET** /api/v1/meetings | Retrieves meetings
+[**getRootServer**](RootServerAPI.md#getrootserver) | **GET** /api/v1/rootservers/{rootServerId} | Retrieves a root server
+[**getRootServers**](RootServerAPI.md#getrootservers) | **GET** /api/v1/rootservers | Retrieves root servers
 [**getServiceBodies**](RootServerAPI.md#getservicebodies) | **GET** /api/v1/servicebodies | Retrieves service bodies
 [**getServiceBody**](RootServerAPI.md#getservicebody) | **GET** /api/v1/servicebodies/{serviceBodyId} | Retrieves a service body
 [**getUser**](RootServerAPI.md#getuser) | **GET** /api/v1/users/{userId} | Retrieves a single user
@@ -167,6 +170,56 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **createErrorTest**
+```swift
+    open class func createErrorTest(errorTest: ErrorTest, completion: @escaping (_ data: ErrorTest?, _ error: Error?) -> Void)
+```
+
+Tests some errors
+
+Tests some errors.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+let errorTest = ErrorTest(arbitraryString: "arbitraryString_example", arbitraryInt: 123, forceServerError: true) // ErrorTest | Pass in error test object.
+
+// Tests some errors
+RootServerAPI.createErrorTest(errorTest: errorTest) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **errorTest** | [**ErrorTest**](ErrorTest.md) | Pass in error test object. | 
+
+### Return type
+
+[**ErrorTest**](ErrorTest.md)
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
 
 ### HTTP request headers
 
@@ -765,6 +818,102 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[Meeting]**](Meeting.md)
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getRootServer**
+```swift
+    open class func getRootServer(rootServerId: Int64, completion: @escaping (_ data: RootServer?, _ error: Error?) -> Void)
+```
+
+Retrieves a root server
+
+Retrieve a single root server id.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+let rootServerId = 987 // Int64 | ID of root server
+
+// Retrieves a root server
+RootServerAPI.getRootServer(rootServerId: rootServerId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **rootServerId** | **Int64** | ID of root server | 
+
+### Return type
+
+[**RootServer**](RootServer.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getRootServers**
+```swift
+    open class func getRootServers(completion: @escaping (_ data: [RootServer]?, _ error: Error?) -> Void)
+```
+
+Retrieves root servers
+
+Retrieve root servers.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+
+// Retrieves root servers
+RootServerAPI.getRootServers() { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[RootServer]**](RootServer.md)
 
 ### Authorization
 

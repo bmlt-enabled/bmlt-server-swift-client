@@ -147,6 +147,53 @@ open class RootServerAPI {
     }
 
     /**
+     Tests some errors
+     
+     - parameter errorTest: (body) Pass in error test object. 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func createErrorTest(errorTest: ErrorTest, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: ErrorTest?, _ error: Error?) -> Void)) -> RequestTask {
+        return createErrorTestWithRequestBuilder(errorTest: errorTest).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Tests some errors
+     - POST /api/v1/errortest
+     - Tests some errors.
+     - OAuth:
+       - type: oauth2
+       - name: bmltToken
+     - parameter errorTest: (body) Pass in error test object. 
+     - returns: RequestBuilder<ErrorTest> 
+     */
+    open class func createErrorTestWithRequestBuilder(errorTest: ErrorTest) -> RequestBuilder<ErrorTest> {
+        let localVariablePath = "/api/v1/errortest"
+        let localVariableURLString = bmltAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: errorTest)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<ErrorTest>.Type = bmltAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Creates a format
      
      - parameter formatCreate: (body) Pass in format object 
@@ -734,6 +781,98 @@ open class RootServerAPI {
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
         let localVariableRequestBuilder: RequestBuilder<[Meeting]>.Type = bmltAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
+     Retrieves a root server
+     
+     - parameter rootServerId: (path) ID of root server 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getRootServer(rootServerId: Int64, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: RootServer?, _ error: Error?) -> Void)) -> RequestTask {
+        return getRootServerWithRequestBuilder(rootServerId: rootServerId).execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Retrieves a root server
+     - GET /api/v1/rootservers/{rootServerId}
+     - Retrieve a single root server id.
+     - parameter rootServerId: (path) ID of root server 
+     - returns: RequestBuilder<RootServer> 
+     */
+    open class func getRootServerWithRequestBuilder(rootServerId: Int64) -> RequestBuilder<RootServer> {
+        var localVariablePath = "/api/v1/rootservers/{rootServerId}"
+        let rootServerIdPreEscape = "\(APIHelper.mapValueToPathItem(rootServerId))"
+        let rootServerIdPostEscape = rootServerIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{rootServerId}", with: rootServerIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = bmltAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<RootServer>.Type = bmltAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+    }
+
+    /**
+     Retrieves root servers
+     
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getRootServers(apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: [RootServer]?, _ error: Error?) -> Void)) -> RequestTask {
+        return getRootServersWithRequestBuilder().execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Retrieves root servers
+     - GET /api/v1/rootservers
+     - Retrieve root servers.
+     - OAuth:
+       - type: oauth2
+       - name: bmltToken
+     - returns: RequestBuilder<[RootServer]> 
+     */
+    open class func getRootServersWithRequestBuilder() -> RequestBuilder<[RootServer]> {
+        let localVariablePath = "/api/v1/rootservers"
+        let localVariableURLString = bmltAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<[RootServer]>.Type = bmltAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }

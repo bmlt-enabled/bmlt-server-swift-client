@@ -28,6 +28,7 @@ Class | Method | HTTP request | Description
 *RootServerAPI* | [**authLogout**](docs/RootServerAPI.md#authlogout) | **POST** /api/v1/auth/logout | Revokes a token
 *RootServerAPI* | [**authRefresh**](docs/RootServerAPI.md#authrefresh) | **POST** /api/v1/auth/refresh | Revokes and issues a new token
 *RootServerAPI* | [**authToken**](docs/RootServerAPI.md#authtoken) | **POST** /api/v1/auth/token | Creates a token
+*RootServerAPI* | [**createErrorTest**](docs/RootServerAPI.md#createerrortest) | **POST** /api/v1/errortest | Tests some errors
 *RootServerAPI* | [**createFormat**](docs/RootServerAPI.md#createformat) | **POST** /api/v1/formats | Creates a format
 *RootServerAPI* | [**createMeeting**](docs/RootServerAPI.md#createmeeting) | **POST** /api/v1/meetings | Creates a meeting
 *RootServerAPI* | [**createServiceBody**](docs/RootServerAPI.md#createservicebody) | **POST** /api/v1/servicebodies | Creates a service body
@@ -40,6 +41,8 @@ Class | Method | HTTP request | Description
 *RootServerAPI* | [**getFormats**](docs/RootServerAPI.md#getformats) | **GET** /api/v1/formats | Retrieves formats
 *RootServerAPI* | [**getMeeting**](docs/RootServerAPI.md#getmeeting) | **GET** /api/v1/meetings/{meetingId} | Retrieves a meeting
 *RootServerAPI* | [**getMeetings**](docs/RootServerAPI.md#getmeetings) | **GET** /api/v1/meetings | Retrieves meetings
+*RootServerAPI* | [**getRootServer**](docs/RootServerAPI.md#getrootserver) | **GET** /api/v1/rootservers/{rootServerId} | Retrieves a root server
+*RootServerAPI* | [**getRootServers**](docs/RootServerAPI.md#getrootservers) | **GET** /api/v1/rootservers | Retrieves root servers
 *RootServerAPI* | [**getServiceBodies**](docs/RootServerAPI.md#getservicebodies) | **GET** /api/v1/servicebodies | Retrieves service bodies
 *RootServerAPI* | [**getServiceBody**](docs/RootServerAPI.md#getservicebody) | **GET** /api/v1/servicebodies/{serviceBodyId} | Retrieves a service body
 *RootServerAPI* | [**getUser**](docs/RootServerAPI.md#getuser) | **GET** /api/v1/users/{userId} | Retrieves a single user
@@ -58,8 +61,9 @@ Class | Method | HTTP request | Description
 
  - [AuthenticationError](docs/AuthenticationError.md)
  - [AuthorizationError](docs/AuthorizationError.md)
+ - [ConflictError](docs/ConflictError.md)
+ - [ErrorTest](docs/ErrorTest.md)
  - [Format](docs/Format.md)
- - [FormatAllOf](docs/FormatAllOf.md)
  - [FormatBase](docs/FormatBase.md)
  - [FormatCreate](docs/FormatCreate.md)
  - [FormatPartialUpdate](docs/FormatPartialUpdate.md)
@@ -71,6 +75,12 @@ Class | Method | HTTP request | Description
  - [MeetingPartialUpdate](docs/MeetingPartialUpdate.md)
  - [MeetingUpdate](docs/MeetingUpdate.md)
  - [NotFoundError](docs/NotFoundError.md)
+ - [RootServer](docs/RootServer.md)
+ - [RootServerBase](docs/RootServerBase.md)
+ - [RootServerBaseStatistics](docs/RootServerBaseStatistics.md)
+ - [RootServerBaseStatisticsMeetings](docs/RootServerBaseStatisticsMeetings.md)
+ - [RootServerBaseStatisticsServiceBodies](docs/RootServerBaseStatisticsServiceBodies.md)
+ - [ServerError](docs/ServerError.md)
  - [ServiceBody](docs/ServiceBody.md)
  - [ServiceBodyBase](docs/ServiceBodyBase.md)
  - [ServiceBodyCreate](docs/ServiceBodyCreate.md)
@@ -81,16 +91,18 @@ Class | Method | HTTP request | Description
  - [User](docs/User.md)
  - [UserBase](docs/UserBase.md)
  - [UserCreate](docs/UserCreate.md)
- - [UserCreateAllOf](docs/UserCreateAllOf.md)
  - [UserPartialUpdate](docs/UserPartialUpdate.md)
  - [UserUpdate](docs/UserUpdate.md)
  - [ValidationError](docs/ValidationError.md)
 
 
+<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
 
-## bmltToken
+Authentication schemes defined for the API:
+<a id="bmltToken"></a>
+### bmltToken
 
 - **Type**: OAuth
 - **Flow**: password

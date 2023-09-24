@@ -7,7 +7,7 @@ generate: openapi.json
 	    -i openapi.json \
 	    -g swift5 \
 	    -p projectName=bmlt \
-	    -p podVersion=1.0.0 \
+	    -p podVersion=1.0.1 \
 	    -p podAuthors=bmlt-enabled \
 	    -p podDescription="BMLT Admin API Client" \
 	    -p podLicense="MIT" \
