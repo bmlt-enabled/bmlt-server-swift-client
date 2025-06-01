@@ -18,7 +18,9 @@ Method | HTTP request | Description
 [**deleteUser**](RootServerAPI.md#deleteuser) | **DELETE** /api/v1/users/{userId} | Deletes a user
 [**getFormat**](RootServerAPI.md#getformat) | **GET** /api/v1/formats/{formatId} | Retrieves a format
 [**getFormats**](RootServerAPI.md#getformats) | **GET** /api/v1/formats | Retrieves formats
+[**getLaravelLog**](RootServerAPI.md#getlaravellog) | **GET** /api/v1/logs/laravel | Retrieves laravel log
 [**getMeeting**](RootServerAPI.md#getmeeting) | **GET** /api/v1/meetings/{meetingId} | Retrieves a meeting
+[**getMeetingChanges**](RootServerAPI.md#getmeetingchanges) | **GET** /api/v1/meetings/{meetingId}/changes | Retrieve changes for a meeting
 [**getMeetings**](RootServerAPI.md#getmeetings) | **GET** /api/v1/meetings | Retrieves meetings
 [**getRootServer**](RootServerAPI.md#getrootserver) | **GET** /api/v1/rootservers/{rootServerId} | Retrieves a root server
 [**getRootServers**](RootServerAPI.md#getrootservers) | **GET** /api/v1/rootservers | Retrieves root servers
@@ -142,7 +144,7 @@ Exchange credentials for a new token
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import bmlt
 
-let tokenCredentials = TokenCredentials(password: "password_example", username: "username_example") // TokenCredentials | User credentials
+let tokenCredentials = TokenCredentials(username: "username_example", password: "password_example") // TokenCredentials | User credentials
 
 // Creates a token
 RootServerAPI.authToken(tokenCredentials: tokenCredentials) { (response, error) in
@@ -292,7 +294,7 @@ Creates a meeting.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import bmlt
 
-let meetingCreate = MeetingCreate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLine: "trainLine_example", comments: "comments_example") // MeetingCreate | Pass in meeting object
+let meetingCreate = MeetingCreate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingCreate | Pass in meeting object
 
 // Creates a meeting
 RootServerAPI.createMeeting(meetingCreate: meetingCreate) { (response, error) in
@@ -392,7 +394,7 @@ Creates a user.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import bmlt
 
-let userCreate = UserCreate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: "ownerId_example", password: "password_example") // UserCreate | Pass in user object
+let userCreate = UserCreate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: 123, password: "password_example") // UserCreate | Pass in user object
 
 // Creates a user
 RootServerAPI.createUser(userCreate: userCreate) { (response, error) in
@@ -724,6 +726,52 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getLaravelLog**
+```swift
+    open class func getLaravelLog(completion: @escaping (_ data: URL?, _ error: Error?) -> Void)
+```
+
+Retrieves laravel log
+
+Retrieve the laravel log if it exists.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+
+// Retrieves laravel log
+RootServerAPI.getLaravelLog() { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**URL**
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/gzip, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getMeeting**
 ```swift
     open class func getMeeting(meetingId: Int64, completion: @escaping (_ data: Meeting?, _ error: Error?) -> Void)
@@ -762,6 +810,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Meeting**](Meeting.md)
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getMeetingChanges**
+```swift
+    open class func getMeetingChanges(meetingId: Int64, completion: @escaping (_ data: [MeetingChangeResource]?, _ error: Error?) -> Void)
+```
+
+Retrieve changes for a meeting
+
+Retrieve all changes made to a specific meeting.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+let meetingId = 987 // Int64 | ID of the meeting
+
+// Retrieve changes for a meeting
+RootServerAPI.getMeetingChanges(meetingId: meetingId) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **meetingId** | **Int64** | ID of the meeting | 
+
+### Return type
+
+[**[MeetingChangeResource]**](MeetingChangeResource.md)
 
 ### Authorization
 
@@ -917,7 +1015,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[bmltToken](../README.md#bmltToken)
+No authorization required
 
 ### HTTP request headers
 
@@ -1133,7 +1231,7 @@ Patches a user by id.
 import bmlt
 
 let userId = 987 // Int64 | ID of user
-let userPartialUpdate = UserPartialUpdate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: "ownerId_example", password: "password_example") // UserPartialUpdate | Pass in fields you want to update.
+let userPartialUpdate = UserPartialUpdate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: 123, password: "password_example") // UserPartialUpdate | Pass in fields you want to update.
 
 // Patches a user
 RootServerAPI.partialUpdateUser(userId: userId, userPartialUpdate: userPartialUpdate) { (response, error) in
@@ -1237,7 +1335,7 @@ Patches a meeting by id
 import bmlt
 
 let meetingId = 987 // Int64 | ID of meeting
-let meetingPartialUpdate = MeetingPartialUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLine: "trainLine_example", comments: "comments_example") // MeetingPartialUpdate | Pass in fields you want to update.
+let meetingPartialUpdate = MeetingPartialUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingPartialUpdate | Pass in fields you want to update.
 
 // Patches a meeting
 RootServerAPI.patchMeeting(meetingId: meetingId, meetingPartialUpdate: meetingPartialUpdate) { (response, error) in
@@ -1393,7 +1491,7 @@ Updates a meeting.
 import bmlt
 
 let meetingId = 987 // Int64 | ID of meeting
-let meetingUpdate = MeetingUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLine: "trainLine_example", comments: "comments_example") // MeetingUpdate | Pass in meeting object
+let meetingUpdate = MeetingUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingUpdate | Pass in meeting object
 
 // Updates a meeting
 RootServerAPI.updateMeeting(meetingId: meetingId, meetingUpdate: meetingUpdate) { (response, error) in
@@ -1497,7 +1595,7 @@ Updates a user.
 import bmlt
 
 let userId = 987 // Int64 | ID of user
-let userUpdate = UserUpdate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: "ownerId_example", password: "password_example") // UserUpdate | Pass in user object
+let userUpdate = UserUpdate(username: "username_example", type: "type_example", displayName: "displayName_example", description: "description_example", email: "email_example", ownerId: 123, password: "password_example") // UserUpdate | Pass in user object
 
 // Update single user
 RootServerAPI.updateUser(userId: userId, userUpdate: userUpdate) { (response, error) in

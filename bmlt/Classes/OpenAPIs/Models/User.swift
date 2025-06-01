@@ -17,10 +17,10 @@ public struct User: Codable, JSONEncodable, Hashable {
     public var displayName: String
     public var description: String
     public var email: String
-    public var ownerId: String
+    public var ownerId: Int
     public var id: Int
 
-    public init(username: String, type: String, displayName: String, description: String, email: String, ownerId: String, id: Int) {
+    public init(username: String, type: String, displayName: String, description: String, email: String, ownerId: Int, id: Int) {
         self.username = username
         self.type = type
         self.displayName = displayName
@@ -54,3 +54,6 @@ public struct User: Codable, JSONEncodable, Hashable {
     }
 }
 
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension User: Identifiable {}

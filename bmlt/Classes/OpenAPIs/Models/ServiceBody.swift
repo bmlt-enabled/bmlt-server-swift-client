@@ -12,7 +12,7 @@ import AnyCodable
 
 public struct ServiceBody: Codable, JSONEncodable, Hashable {
 
-    public var parentId: Int
+    public var parentId: Int?
     public var name: String
     public var description: String
     public var type: String
@@ -24,7 +24,7 @@ public struct ServiceBody: Codable, JSONEncodable, Hashable {
     public var worldId: String
     public var id: Int
 
-    public init(parentId: Int, name: String, description: String, type: String, adminUserId: Int, assignedUserIds: [Int], url: String, helpline: String, email: String, worldId: String, id: Int) {
+    public init(parentId: Int?, name: String, description: String, type: String, adminUserId: Int, assignedUserIds: [Int], url: String, helpline: String, email: String, worldId: String, id: Int) {
         self.parentId = parentId
         self.name = name
         self.description = description
@@ -70,3 +70,6 @@ public struct ServiceBody: Codable, JSONEncodable, Hashable {
     }
 }
 
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension ServiceBody: Identifiable {}

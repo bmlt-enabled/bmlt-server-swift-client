@@ -46,11 +46,12 @@ public struct Meeting: Codable, JSONEncodable, Hashable {
     public var contactEmail1: String?
     public var contactEmail2: String?
     public var busLines: String?
-    public var trainLine: String?
+    public var trainLines: String?
     public var comments: String?
+    public var customFields: [String: String]?
     public var id: Int
 
-    public init(serviceBodyId: Int, formatIds: [Int], venueType: Int, temporarilyVirtual: Bool, day: Int, startTime: String, duration: String, timeZone: String, latitude: Float, longitude: Float, published: Bool, email: String, worldId: String, name: String, locationText: String? = nil, locationInfo: String? = nil, locationStreet: String? = nil, locationNeighborhood: String? = nil, locationCitySubsection: String? = nil, locationMunicipality: String? = nil, locationSubProvince: String? = nil, locationProvince: String? = nil, locationPostalCode1: String? = nil, locationNation: String? = nil, phoneMeetingNumber: String? = nil, virtualMeetingLink: String? = nil, virtualMeetingAdditionalInfo: String? = nil, contactName1: String? = nil, contactName2: String? = nil, contactPhone1: String? = nil, contactPhone2: String? = nil, contactEmail1: String? = nil, contactEmail2: String? = nil, busLines: String? = nil, trainLine: String? = nil, comments: String? = nil, id: Int) {
+    public init(serviceBodyId: Int, formatIds: [Int], venueType: Int, temporarilyVirtual: Bool, day: Int, startTime: String, duration: String, timeZone: String, latitude: Float, longitude: Float, published: Bool, email: String, worldId: String, name: String, locationText: String? = nil, locationInfo: String? = nil, locationStreet: String? = nil, locationNeighborhood: String? = nil, locationCitySubsection: String? = nil, locationMunicipality: String? = nil, locationSubProvince: String? = nil, locationProvince: String? = nil, locationPostalCode1: String? = nil, locationNation: String? = nil, phoneMeetingNumber: String? = nil, virtualMeetingLink: String? = nil, virtualMeetingAdditionalInfo: String? = nil, contactName1: String? = nil, contactName2: String? = nil, contactPhone1: String? = nil, contactPhone2: String? = nil, contactEmail1: String? = nil, contactEmail2: String? = nil, busLines: String? = nil, trainLines: String? = nil, comments: String? = nil, customFields: [String: String]? = nil, id: Int) {
         self.serviceBodyId = serviceBodyId
         self.formatIds = formatIds
         self.venueType = venueType
@@ -85,8 +86,9 @@ public struct Meeting: Codable, JSONEncodable, Hashable {
         self.contactEmail1 = contactEmail1
         self.contactEmail2 = contactEmail2
         self.busLines = busLines
-        self.trainLine = trainLine
+        self.trainLines = trainLines
         self.comments = comments
+        self.customFields = customFields
         self.id = id
     }
 
@@ -125,8 +127,9 @@ public struct Meeting: Codable, JSONEncodable, Hashable {
         case contactEmail1 = "contact_email_1"
         case contactEmail2 = "contact_email_2"
         case busLines = "bus_lines"
-        case trainLine = "train_line"
+        case trainLines = "train_lines"
         case comments
+        case customFields
         case id
     }
 
@@ -168,9 +171,13 @@ public struct Meeting: Codable, JSONEncodable, Hashable {
         try container.encodeIfPresent(contactEmail1, forKey: .contactEmail1)
         try container.encodeIfPresent(contactEmail2, forKey: .contactEmail2)
         try container.encodeIfPresent(busLines, forKey: .busLines)
-        try container.encodeIfPresent(trainLine, forKey: .trainLine)
+        try container.encodeIfPresent(trainLines, forKey: .trainLines)
         try container.encodeIfPresent(comments, forKey: .comments)
+        try container.encodeIfPresent(customFields, forKey: .customFields)
         try container.encode(id, forKey: .id)
     }
 }
 
+
+@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)
+extension Meeting: Identifiable {}

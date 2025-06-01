@@ -12,7 +12,7 @@ import AnyCodable
 
 public struct ServiceBodyCreate: Codable, JSONEncodable, Hashable {
 
-    public var parentId: Int
+    public var parentId: Int?
     public var name: String
     public var description: String
     public var type: String
@@ -23,7 +23,7 @@ public struct ServiceBodyCreate: Codable, JSONEncodable, Hashable {
     public var email: String?
     public var worldId: String?
 
-    public init(parentId: Int, name: String, description: String, type: String, adminUserId: Int, assignedUserIds: [Int], url: String? = nil, helpline: String? = nil, email: String? = nil, worldId: String? = nil) {
+    public init(parentId: Int?, name: String, description: String, type: String, adminUserId: Int, assignedUserIds: [Int], url: String? = nil, helpline: String? = nil, email: String? = nil, worldId: String? = nil) {
         self.parentId = parentId
         self.name = name
         self.description = description

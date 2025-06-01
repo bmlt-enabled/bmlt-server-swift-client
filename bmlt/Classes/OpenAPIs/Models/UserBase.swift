@@ -17,9 +17,9 @@ public struct UserBase: Codable, JSONEncodable, Hashable {
     public var displayName: String?
     public var description: String?
     public var email: String?
-    public var ownerId: String?
+    public var ownerId: Int?
 
-    public init(username: String? = nil, type: String? = nil, displayName: String? = nil, description: String? = nil, email: String? = nil, ownerId: String? = nil) {
+    public init(username: String? = nil, type: String? = nil, displayName: String? = nil, description: String? = nil, email: String? = nil, ownerId: Int? = nil) {
         self.username = username
         self.type = type
         self.displayName = displayName

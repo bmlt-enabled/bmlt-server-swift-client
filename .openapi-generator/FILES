@@ -25,6 +25,7 @@ bmlt/Classes/OpenAPIs/Models/FormatTranslation.swift
 bmlt/Classes/OpenAPIs/Models/FormatUpdate.swift
 bmlt/Classes/OpenAPIs/Models/Meeting.swift
 bmlt/Classes/OpenAPIs/Models/MeetingBase.swift
+bmlt/Classes/OpenAPIs/Models/MeetingChangeResource.swift
 bmlt/Classes/OpenAPIs/Models/MeetingCreate.swift
 bmlt/Classes/OpenAPIs/Models/MeetingPartialUpdate.swift
 bmlt/Classes/OpenAPIs/Models/MeetingUpdate.swift
@@ -64,6 +65,7 @@ docs/FormatTranslation.md
 docs/FormatUpdate.md
 docs/Meeting.md
 docs/MeetingBase.md
+docs/MeetingChangeResource.md
 docs/MeetingCreate.md
 docs/MeetingPartialUpdate.md
 docs/MeetingUpdate.md

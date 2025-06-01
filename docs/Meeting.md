@@ -37,8 +37,9 @@ Name | Type | Description | Notes
 **contactEmail1** | **String** |  | [optional] 
 **contactEmail2** | **String** |  | [optional] 
 **busLines** | **String** |  | [optional] 
-**trainLine** | **String** |  | [optional] 
+**trainLines** | **String** |  | [optional] 
 **comments** | **String** |  | [optional] 
+**customFields** | **[String: String]** |  | [optional] 
 **id** | **Int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

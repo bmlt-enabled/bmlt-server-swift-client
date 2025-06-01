@@ -7,11 +7,11 @@ generate: openapi.json
 	    -i openapi.json \
 	    -g swift5 \
 	    -p projectName=bmlt \
-	    -p podVersion=1.0.1 \
+	    -p podVersion=1.0.2 \
 	    -p podAuthors=bmlt-enabled \
 	    -p podDescription="BMLT Admin API Client" \
 	    -p podLicense="MIT" \
-		--git-repo-id=bmlt-root-server-go-client \
+		--git-repo-id=bmlt-server-swift-client \
 		--git-user-id=bmlt-enabled \
 	    -o .
 

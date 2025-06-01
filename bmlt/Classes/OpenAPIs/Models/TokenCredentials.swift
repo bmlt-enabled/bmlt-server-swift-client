@@ -12,25 +12,25 @@ import AnyCodable
 
 public struct TokenCredentials: Codable, JSONEncodable, Hashable {
 
-    public var password: String
     public var username: String
+    public var password: String
 
-    public init(password: String, username: String) {
-        self.password = password
+    public init(username: String, password: String) {
         self.username = username
+        self.password = password
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case password
         case username
+        case password
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(password, forKey: .password)
         try container.encode(username, forKey: .username)
+        try container.encode(password, forKey: .password)
     }
 }
 

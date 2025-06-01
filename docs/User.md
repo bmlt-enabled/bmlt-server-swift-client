@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **displayName** | **String** |  | 
 **description** | **String** |  | 
 **email** | **String** |  | 
-**ownerId** | **String** |  | 
+**ownerId** | **Int** |  | 
 **id** | **Int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
