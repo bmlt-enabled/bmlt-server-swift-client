@@ -1322,7 +1322,7 @@ Void (empty response body)
 
 # **patchMeeting**
 ```swift
-    open class func patchMeeting(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func patchMeeting(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate, skipVenueTypeLocationValidation: Bool? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Patches a meeting
@@ -1336,9 +1336,10 @@ import bmlt
 
 let meetingId = 987 // Int64 | ID of meeting
 let meetingPartialUpdate = MeetingPartialUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingPartialUpdate | Pass in fields you want to update.
+let skipVenueTypeLocationValidation = true // Bool | specify true to skip venue type location validation (optional)
 
 // Patches a meeting
-RootServerAPI.patchMeeting(meetingId: meetingId, meetingPartialUpdate: meetingPartialUpdate) { (response, error) in
+RootServerAPI.patchMeeting(meetingId: meetingId, meetingPartialUpdate: meetingPartialUpdate, skipVenueTypeLocationValidation: skipVenueTypeLocationValidation) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -1356,6 +1357,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **meetingId** | **Int64** | ID of meeting | 
  **meetingPartialUpdate** | [**MeetingPartialUpdate**](MeetingPartialUpdate.md) | Pass in fields you want to update. | 
+ **skipVenueTypeLocationValidation** | **Bool** | specify true to skip venue type location validation | [optional] 
 
 ### Return type
 

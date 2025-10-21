@@ -1268,12 +1268,13 @@ open class RootServerAPI {
      
      - parameter meetingId: (path) ID of meeting 
      - parameter meetingPartialUpdate: (body) Pass in fields you want to update. 
+     - parameter skipVenueTypeLocationValidation: (query) specify true to skip venue type location validation (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func patchMeeting(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return patchMeetingWithRequestBuilder(meetingId: meetingId, meetingPartialUpdate: meetingPartialUpdate).execute(apiResponseQueue) { result in
+    open class func patchMeeting(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate, skipVenueTypeLocationValidation: Bool? = nil, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return patchMeetingWithRequestBuilder(meetingId: meetingId, meetingPartialUpdate: meetingPartialUpdate, skipVenueTypeLocationValidation: skipVenueTypeLocationValidation).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -1292,9 +1293,10 @@ open class RootServerAPI {
        - name: bmltToken
      - parameter meetingId: (path) ID of meeting 
      - parameter meetingPartialUpdate: (body) Pass in fields you want to update. 
+     - parameter skipVenueTypeLocationValidation: (query) specify true to skip venue type location validation (optional)
      - returns: RequestBuilder<Void> 
      */
-    open class func patchMeetingWithRequestBuilder(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate) -> RequestBuilder<Void> {
+    open class func patchMeetingWithRequestBuilder(meetingId: Int64, meetingPartialUpdate: MeetingPartialUpdate, skipVenueTypeLocationValidation: Bool? = nil) -> RequestBuilder<Void> {
         var localVariablePath = "/api/v1/meetings/{meetingId}"
         let meetingIdPreEscape = "\(APIHelper.mapValueToPathItem(meetingId))"
         let meetingIdPostEscape = meetingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -1302,7 +1304,10 @@ open class RootServerAPI {
         let localVariableURLString = bmltAPI.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: meetingPartialUpdate)
 
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "skipVenueTypeLocationValidation": (wrappedValue: skipVenueTypeLocationValidation?.encodeToJSON(), isExplode: true),
+        ])
 
         let localVariableNillableHeaders: [String: Any?] = [
             "Content-Type": "application/json",

@@ -12,20 +12,20 @@ import AnyCodable
 
 public struct MeetingPartialUpdate: Codable, JSONEncodable, Hashable {
 
-    public var serviceBodyId: Int
-    public var formatIds: [Int]
-    public var venueType: Int
+    public var serviceBodyId: Int?
+    public var formatIds: [Int]?
+    public var venueType: Int?
     public var temporarilyVirtual: Bool?
-    public var day: Int
-    public var startTime: String
-    public var duration: String
+    public var day: Int?
+    public var startTime: String?
+    public var duration: String?
     public var timeZone: String?
-    public var latitude: Float
-    public var longitude: Float
-    public var published: Bool
+    public var latitude: Float?
+    public var longitude: Float?
+    public var published: Bool?
     public var email: String?
     public var worldId: String?
-    public var name: String
+    public var name: String?
     public var locationText: String?
     public var locationInfo: String?
     public var locationStreet: String?
@@ -50,7 +50,7 @@ public struct MeetingPartialUpdate: Codable, JSONEncodable, Hashable {
     public var comments: String?
     public var customFields: [String: String]?
 
-    public init(serviceBodyId: Int, formatIds: [Int], venueType: Int, temporarilyVirtual: Bool? = nil, day: Int, startTime: String, duration: String, timeZone: String? = nil, latitude: Float, longitude: Float, published: Bool, email: String? = nil, worldId: String? = nil, name: String, locationText: String? = nil, locationInfo: String? = nil, locationStreet: String? = nil, locationNeighborhood: String? = nil, locationCitySubsection: String? = nil, locationMunicipality: String? = nil, locationSubProvince: String? = nil, locationProvince: String? = nil, locationPostalCode1: String? = nil, locationNation: String? = nil, phoneMeetingNumber: String? = nil, virtualMeetingLink: String? = nil, virtualMeetingAdditionalInfo: String? = nil, contactName1: String? = nil, contactName2: String? = nil, contactPhone1: String? = nil, contactPhone2: String? = nil, contactEmail1: String? = nil, contactEmail2: String? = nil, busLines: String? = nil, trainLines: String? = nil, comments: String? = nil, customFields: [String: String]? = nil) {
+    public init(serviceBodyId: Int? = nil, formatIds: [Int]? = nil, venueType: Int? = nil, temporarilyVirtual: Bool? = nil, day: Int? = nil, startTime: String? = nil, duration: String? = nil, timeZone: String? = nil, latitude: Float? = nil, longitude: Float? = nil, published: Bool? = nil, email: String? = nil, worldId: String? = nil, name: String? = nil, locationText: String? = nil, locationInfo: String? = nil, locationStreet: String? = nil, locationNeighborhood: String? = nil, locationCitySubsection: String? = nil, locationMunicipality: String? = nil, locationSubProvince: String? = nil, locationProvince: String? = nil, locationPostalCode1: String? = nil, locationNation: String? = nil, phoneMeetingNumber: String? = nil, virtualMeetingLink: String? = nil, virtualMeetingAdditionalInfo: String? = nil, contactName1: String? = nil, contactName2: String? = nil, contactPhone1: String? = nil, contactPhone2: String? = nil, contactEmail1: String? = nil, contactEmail2: String? = nil, busLines: String? = nil, trainLines: String? = nil, comments: String? = nil, customFields: [String: String]? = nil) {
         self.serviceBodyId = serviceBodyId
         self.formatIds = formatIds
         self.venueType = venueType
@@ -134,20 +134,20 @@ public struct MeetingPartialUpdate: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(serviceBodyId, forKey: .serviceBodyId)
-        try container.encode(formatIds, forKey: .formatIds)
-        try container.encode(venueType, forKey: .venueType)
+        try container.encodeIfPresent(serviceBodyId, forKey: .serviceBodyId)
+        try container.encodeIfPresent(formatIds, forKey: .formatIds)
+        try container.encodeIfPresent(venueType, forKey: .venueType)
         try container.encodeIfPresent(temporarilyVirtual, forKey: .temporarilyVirtual)
-        try container.encode(day, forKey: .day)
-        try container.encode(startTime, forKey: .startTime)
-        try container.encode(duration, forKey: .duration)
+        try container.encodeIfPresent(day, forKey: .day)
+        try container.encodeIfPresent(startTime, forKey: .startTime)
+        try container.encodeIfPresent(duration, forKey: .duration)
         try container.encodeIfPresent(timeZone, forKey: .timeZone)
-        try container.encode(latitude, forKey: .latitude)
-        try container.encode(longitude, forKey: .longitude)
-        try container.encode(published, forKey: .published)
+        try container.encodeIfPresent(latitude, forKey: .latitude)
+        try container.encodeIfPresent(longitude, forKey: .longitude)
+        try container.encodeIfPresent(published, forKey: .published)
         try container.encodeIfPresent(email, forKey: .email)
         try container.encodeIfPresent(worldId, forKey: .worldId)
-        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(locationText, forKey: .locationText)
         try container.encodeIfPresent(locationInfo, forKey: .locationInfo)
         try container.encodeIfPresent(locationStreet, forKey: .locationStreet)

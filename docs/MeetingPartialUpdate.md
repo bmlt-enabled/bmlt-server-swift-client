@@ -3,20 +3,20 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**serviceBodyId** | **Int** |  | 
-**formatIds** | **[Int]** |  | 
-**venueType** | **Int** |  | 
+**serviceBodyId** | **Int** |  | [optional] 
+**formatIds** | **[Int]** |  | [optional] 
+**venueType** | **Int** |  | [optional] 
 **temporarilyVirtual** | **Bool** |  | [optional] 
-**day** | **Int** |  | 
-**startTime** | **String** |  | 
-**duration** | **String** |  | 
+**day** | **Int** |  | [optional] 
+**startTime** | **String** |  | [optional] 
+**duration** | **String** |  | [optional] 
 **timeZone** | **String** |  | [optional] 
-**latitude** | **Float** |  | 
-**longitude** | **Float** |  | 
-**published** | **Bool** |  | 
+**latitude** | **Float** |  | [optional] 
+**longitude** | **Float** |  | [optional] 
+**published** | **Bool** |  | [optional] 
 **email** | **String** |  | [optional] 
 **worldId** | **String** |  | [optional] 
-**name** | **String** |  | 
+**name** | **String** |  | [optional] 
 **locationText** | **String** |  | [optional] 
 **locationInfo** | **String** |  | [optional] 
 **locationStreet** | **String** |  | [optional] 
