@@ -19,8 +19,9 @@ public struct User: Codable, JSONEncodable, Hashable {
     public var email: String
     public var ownerId: Int
     public var id: Int
+    public var lastLoginAt: Date?
 
-    public init(username: String, type: String, displayName: String, description: String, email: String, ownerId: Int, id: Int) {
+    public init(username: String, type: String, displayName: String, description: String, email: String, ownerId: Int, id: Int, lastLoginAt: Date? = nil) {
         self.username = username
         self.type = type
         self.displayName = displayName
@@ -28,6 +29,7 @@ public struct User: Codable, JSONEncodable, Hashable {
         self.email = email
         self.ownerId = ownerId
         self.id = id
+        self.lastLoginAt = lastLoginAt
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -38,6 +40,7 @@ public struct User: Codable, JSONEncodable, Hashable {
         case email
         case ownerId
         case id
+        case lastLoginAt
     }
 
     // Encodable protocol methods
@@ -51,6 +54,7 @@ public struct User: Codable, JSONEncodable, Hashable {
         try container.encode(email, forKey: .email)
         try container.encode(ownerId, forKey: .ownerId)
         try container.encode(id, forKey: .id)
+        try container.encodeIfPresent(lastLoginAt, forKey: .lastLoginAt)
     }
 }
 
