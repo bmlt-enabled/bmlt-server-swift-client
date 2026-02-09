@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**getRootServers**](RootServerAPI.md#getrootservers) | **GET** /api/v1/rootservers | Retrieves root servers
 [**getServiceBodies**](RootServerAPI.md#getservicebodies) | **GET** /api/v1/servicebodies | Retrieves service bodies
 [**getServiceBody**](RootServerAPI.md#getservicebody) | **GET** /api/v1/servicebodies/{serviceBodyId} | Retrieves a service body
+[**getSettings**](RootServerAPI.md#getsettings) | **GET** /api/v1/settings | Retrieves all settings
 [**getUser**](RootServerAPI.md#getuser) | **GET** /api/v1/users/{userId} | Retrieves a single user
 [**getUsers**](RootServerAPI.md#getusers) | **GET** /api/v1/users | Retrieves users
 [**partialUpdateUser**](RootServerAPI.md#partialupdateuser) | **PATCH** /api/v1/users/{userId} | Patches a user
@@ -35,6 +36,7 @@ Method | HTTP request | Description
 [**updateFormat**](RootServerAPI.md#updateformat) | **PUT** /api/v1/formats/{formatId} | Updates a format
 [**updateMeeting**](RootServerAPI.md#updatemeeting) | **PUT** /api/v1/meetings/{meetingId} | Updates a meeting
 [**updateServiceBody**](RootServerAPI.md#updateservicebody) | **PUT** /api/v1/servicebodies/{serviceBodyId} | Updates a Service Body
+[**updateSettings**](RootServerAPI.md#updatesettings) | **PATCH** /api/v1/settings | Update settings
 [**updateUser**](RootServerAPI.md#updateuser) | **PUT** /api/v1/users/{userId} | Update single user
 
 
@@ -294,7 +296,7 @@ Creates a meeting.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import bmlt
 
-let meetingCreate = MeetingCreate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingCreate | Pass in meeting object
+let meetingCreate = MeetingCreate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", adminNotes: "adminNotes_example", customFields: "TODO") // MeetingCreate | Pass in meeting object
 
 // Creates a meeting
 RootServerAPI.createMeeting(meetingCreate: meetingCreate) { (response, error) in
@@ -532,12 +534,12 @@ Void (empty response body)
 
 # **deleteServiceBody**
 ```swift
-    open class func deleteServiceBody(serviceBodyId: Int64, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+    open class func deleteServiceBody(serviceBodyId: Int64, force: Force_deleteServiceBody? = nil, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
 ```
 
 Deletes a service body
 
-Deletes a service body by id.
+Deletes a service body by id. If the service body has meetings, use force=true to delete them as well.
 
 ### Example
 ```swift
@@ -545,9 +547,10 @@ Deletes a service body by id.
 import bmlt
 
 let serviceBodyId = 987 // Int64 | ID of service body
+let force = "force_example" // String | Force deletion of service body and all associated meetings (optional) (default to ._false)
 
 // Deletes a service body
-RootServerAPI.deleteServiceBody(serviceBodyId: serviceBodyId) { (response, error) in
+RootServerAPI.deleteServiceBody(serviceBodyId: serviceBodyId, force: force) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -564,6 +567,7 @@ RootServerAPI.deleteServiceBody(serviceBodyId: serviceBodyId) { (response, error
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **serviceBodyId** | **Int64** | ID of service body | 
+ **force** | **String** | Force deletion of service body and all associated meetings | [optional] [default to ._false]
 
 ### Return type
 
@@ -1120,6 +1124,52 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getSettings**
+```swift
+    open class func getSettings(completion: @escaping (_ data: SettingsObject?, _ error: Error?) -> Void)
+```
+
+Retrieves all settings
+
+Retrieve all server settings. Only accessible to server administrators.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+
+// Retrieves all settings
+RootServerAPI.getSettings() { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SettingsObject**](SettingsObject.md)
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getUser**
 ```swift
     open class func getUser(userId: Int64, completion: @escaping (_ data: User?, _ error: Error?) -> Void)
@@ -1335,7 +1385,7 @@ Patches a meeting by id
 import bmlt
 
 let meetingId = 987 // Int64 | ID of meeting
-let meetingPartialUpdate = MeetingPartialUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingPartialUpdate | Pass in fields you want to update.
+let meetingPartialUpdate = MeetingPartialUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", adminNotes: "adminNotes_example", customFields: "TODO") // MeetingPartialUpdate | Pass in fields you want to update.
 let skipVenueTypeLocationValidation = true // Bool | specify true to skip venue type location validation (optional)
 
 // Patches a meeting
@@ -1493,7 +1543,7 @@ Updates a meeting.
 import bmlt
 
 let meetingId = 987 // Int64 | ID of meeting
-let meetingUpdate = MeetingUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", customFields: "TODO") // MeetingUpdate | Pass in meeting object
+let meetingUpdate = MeetingUpdate(serviceBodyId: 123, formatIds: [123], venueType: 123, temporarilyVirtual: false, day: 123, startTime: "startTime_example", duration: "duration_example", timeZone: "timeZone_example", latitude: 123, longitude: 123, published: true, email: "email_example", worldId: "worldId_example", name: "name_example", locationText: "locationText_example", locationInfo: "locationInfo_example", locationStreet: "locationStreet_example", locationNeighborhood: "locationNeighborhood_example", locationCitySubsection: "locationCitySubsection_example", locationMunicipality: "locationMunicipality_example", locationSubProvince: "locationSubProvince_example", locationProvince: "locationProvince_example", locationPostalCode1: "locationPostalCode1_example", locationNation: "locationNation_example", phoneMeetingNumber: "phoneMeetingNumber_example", virtualMeetingLink: "virtualMeetingLink_example", virtualMeetingAdditionalInfo: "virtualMeetingAdditionalInfo_example", contactName1: "contactName1_example", contactName2: "contactName2_example", contactPhone1: "contactPhone1_example", contactPhone2: "contactPhone2_example", contactEmail1: "contactEmail1_example", contactEmail2: "contactEmail2_example", busLines: "busLines_example", trainLines: "trainLines_example", comments: "comments_example", adminNotes: "adminNotes_example", customFields: "TODO") // MeetingUpdate | Pass in meeting object
 
 // Updates a meeting
 RootServerAPI.updateMeeting(meetingId: meetingId, meetingUpdate: meetingUpdate) { (response, error) in
@@ -1566,6 +1616,56 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **serviceBodyId** | **Int64** | ID of service body | 
  **serviceBodyUpdate** | [**ServiceBodyUpdate**](ServiceBodyUpdate.md) | Pass in service body object | 
+
+### Return type
+
+Void (empty response body)
+
+### Authorization
+
+[bmltToken](../README.md#bmltToken)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateSettings**
+```swift
+    open class func updateSettings(settingsUpdate: SettingsUpdate, completion: @escaping (_ data: Void?, _ error: Error?) -> Void)
+```
+
+Update settings
+
+Updates one or more server settings. Only accessible to server administrators.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import bmlt
+
+let settingsUpdate = SettingsUpdate(googleApiKey: "googleApiKey_example", changeDepthForMeetings: 123, defaultSortKey: "defaultSortKey_example", language: "language_example", defaultDurationTime: "defaultDurationTime_example", regionBias: "regionBias_example", distanceUnits: "distanceUnits_example", meetingStatesAndProvinces: ["meetingStatesAndProvinces_example"], meetingCountiesAndSubProvinces: ["meetingCountiesAndSubProvinces_example"], searchSpecMapCenterLongitude: 123, searchSpecMapCenterLatitude: 123, searchSpecMapCenterZoom: 123, numberOfMeetingsForAuto: 123, autoGeocodingEnabled: false, countyAutoGeocodingEnabled: false, zipAutoGeocodingEnabled: false, defaultClosedStatus: false, enableLanguageSelector: false, includeServiceBodyEmailInSemantic: false, bmltTitle: "bmltTitle_example", bmltNotice: "bmltNotice_example", formatLangNames: 123) // SettingsUpdate | Pass in settings object with values to update
+
+// Update settings
+RootServerAPI.updateSettings(settingsUpdate: settingsUpdate) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **settingsUpdate** | [**SettingsUpdate**](SettingsUpdate.md) | Pass in settings object with values to update | 
 
 ### Return type
 

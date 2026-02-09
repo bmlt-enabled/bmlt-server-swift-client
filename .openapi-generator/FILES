@@ -41,6 +41,9 @@ bmlt/Classes/OpenAPIs/Models/ServiceBodyBase.swift
 bmlt/Classes/OpenAPIs/Models/ServiceBodyCreate.swift
 bmlt/Classes/OpenAPIs/Models/ServiceBodyPartialUpdate.swift
 bmlt/Classes/OpenAPIs/Models/ServiceBodyUpdate.swift
+bmlt/Classes/OpenAPIs/Models/SettingsBase.swift
+bmlt/Classes/OpenAPIs/Models/SettingsObject.swift
+bmlt/Classes/OpenAPIs/Models/SettingsUpdate.swift
 bmlt/Classes/OpenAPIs/Models/Token.swift
 bmlt/Classes/OpenAPIs/Models/TokenCredentials.swift
 bmlt/Classes/OpenAPIs/Models/User.swift
@@ -82,6 +85,9 @@ docs/ServiceBodyBase.md
 docs/ServiceBodyCreate.md
 docs/ServiceBodyPartialUpdate.md
 docs/ServiceBodyUpdate.md
+docs/SettingsBase.md
+docs/SettingsObject.md
+docs/SettingsUpdate.md
 docs/Token.md
 docs/TokenCredentials.md
 docs/User.md

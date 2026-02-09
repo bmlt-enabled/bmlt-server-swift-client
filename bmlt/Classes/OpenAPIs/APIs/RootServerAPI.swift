@@ -482,15 +482,24 @@ open class RootServerAPI {
     }
 
     /**
+     * enum for parameter force
+     */
+    public enum Force_deleteServiceBody: String, CaseIterable {
+        case _true = "true"
+        case _false = "false"
+    }
+
+    /**
      Deletes a service body
      
      - parameter serviceBodyId: (path) ID of service body 
+     - parameter force: (query) Force deletion of service body and all associated meetings (optional, default to ._false)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
     @discardableResult
-    open class func deleteServiceBody(serviceBodyId: Int64, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
-        return deleteServiceBodyWithRequestBuilder(serviceBodyId: serviceBodyId).execute(apiResponseQueue) { result in
+    open class func deleteServiceBody(serviceBodyId: Int64, force: Force_deleteServiceBody? = nil, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return deleteServiceBodyWithRequestBuilder(serviceBodyId: serviceBodyId, force: force).execute(apiResponseQueue) { result in
             switch result {
             case .success:
                 completion((), nil)
@@ -503,14 +512,15 @@ open class RootServerAPI {
     /**
      Deletes a service body
      - DELETE /api/v1/servicebodies/{serviceBodyId}
-     - Deletes a service body by id.
+     - Deletes a service body by id. If the service body has meetings, use force=true to delete them as well.
      - OAuth:
        - type: oauth2
        - name: bmltToken
      - parameter serviceBodyId: (path) ID of service body 
+     - parameter force: (query) Force deletion of service body and all associated meetings (optional, default to ._false)
      - returns: RequestBuilder<Void> 
      */
-    open class func deleteServiceBodyWithRequestBuilder(serviceBodyId: Int64) -> RequestBuilder<Void> {
+    open class func deleteServiceBodyWithRequestBuilder(serviceBodyId: Int64, force: Force_deleteServiceBody? = nil) -> RequestBuilder<Void> {
         var localVariablePath = "/api/v1/servicebodies/{serviceBodyId}"
         let serviceBodyIdPreEscape = "\(APIHelper.mapValueToPathItem(serviceBodyId))"
         let serviceBodyIdPostEscape = serviceBodyIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
@@ -518,7 +528,10 @@ open class RootServerAPI {
         let localVariableURLString = bmltAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
-        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "force": (wrappedValue: force?.encodeToJSON(), isExplode: true),
+        ])
 
         let localVariableNillableHeaders: [String: Any?] = [
             :
@@ -1065,6 +1078,51 @@ open class RootServerAPI {
     }
 
     /**
+     Retrieves all settings
+     
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func getSettings(apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: SettingsObject?, _ error: Error?) -> Void)) -> RequestTask {
+        return getSettingsWithRequestBuilder().execute(apiResponseQueue) { result in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Retrieves all settings
+     - GET /api/v1/settings
+     - Retrieve all server settings. Only accessible to server administrators.
+     - OAuth:
+       - type: oauth2
+       - name: bmltToken
+     - returns: RequestBuilder<SettingsObject> 
+     */
+    open class func getSettingsWithRequestBuilder() -> RequestBuilder<SettingsObject> {
+        let localVariablePath = "/api/v1/settings"
+        let localVariableURLString = bmltAPI.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<SettingsObject>.Type = bmltAPI.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
      Retrieves a single user
      
      - parameter userId: (path) ID of user 
@@ -1526,6 +1584,53 @@ open class RootServerAPI {
         let localVariableRequestBuilder: RequestBuilder<Void>.Type = bmltAPI.requestBuilderFactory.getNonDecodableBuilder()
 
         return localVariableRequestBuilder.init(method: "PUT", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
+    }
+
+    /**
+     Update settings
+     
+     - parameter settingsUpdate: (body) Pass in settings object with values to update 
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    @discardableResult
+    open class func updateSettings(settingsUpdate: SettingsUpdate, apiResponseQueue: DispatchQueue = bmltAPI.apiResponseQueue, completion: @escaping ((_ data: Void?, _ error: Error?) -> Void)) -> RequestTask {
+        return updateSettingsWithRequestBuilder(settingsUpdate: settingsUpdate).execute(apiResponseQueue) { result in
+            switch result {
+            case .success:
+                completion((), nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Update settings
+     - PATCH /api/v1/settings
+     - Updates one or more server settings. Only accessible to server administrators.
+     - OAuth:
+       - type: oauth2
+       - name: bmltToken
+     - parameter settingsUpdate: (body) Pass in settings object with values to update 
+     - returns: RequestBuilder<Void> 
+     */
+    open class func updateSettingsWithRequestBuilder(settingsUpdate: SettingsUpdate) -> RequestBuilder<Void> {
+        let localVariablePath = "/api/v1/settings"
+        let localVariableURLString = bmltAPI.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: settingsUpdate)
+
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            "Content-Type": "application/json",
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<Void>.Type = bmltAPI.requestBuilderFactory.getNonDecodableBuilder()
+
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: true)
     }
 
     /**

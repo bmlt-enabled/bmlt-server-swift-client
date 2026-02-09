@@ -39,6 +39,7 @@ Name | Type | Description | Notes
 **busLines** | **String** |  | [optional] 
 **trainLines** | **String** |  | [optional] 
 **comments** | **String** |  | [optional] 
+**adminNotes** | **String** |  | [optional] 
 **customFields** | **[String: String]** |  | [optional] 
 **id** | **Int** |  | 
 
